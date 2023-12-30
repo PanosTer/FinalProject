@@ -39,7 +39,7 @@
 
    Γνωρίζοντας αυτά σε ένα terminal εκτελούμε τις εντολές με την σειρά:
    a) npm install (ώστε να εγκατασταθούν όλα τα απαραίτητα dependencies)
-   b) docker-compose up-d (ώστε να τρέξουμε το docker)
+   b) docker-compose up -d (ώστε να τρέξουμε το docker)
    c) npm run start:dev (ώστε να τρέξουμε το backend και επίσης σε κάθε αλλαγή να εκτελείτε ξανά αυτόματα)
 
 
