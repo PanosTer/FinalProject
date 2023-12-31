@@ -22,6 +22,8 @@
   - διαγραφή των posts όλων των χρηστών.
   - Προβολή όλων των posts.
 
+  Επίσης για την είσοδο στην εφαρμογή έχουμε και εκεί έναν χρήστη admin με κωδικό πρόσβασης την μεταβλητή του USER_PASSWORD από το .env αρχείο.
+
  2) Τεχνικές Προδιαγραφές
  
  # BackEnd
@@ -63,6 +65,8 @@
 
 -Το swagger τρέχει στην πόρτα http://localhost:3001/api
 
+4)
+- git repository https://github.com/PanosTer/FinalProjectBackEnd.git
 
 
 
