@@ -3,13 +3,21 @@ import { UserService } from './user.service';
 import { UserDto, UserQueryDto, UpdateUserDto, UserPasswordDto } from './user.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import * as bcrypt from 'bcryptjs';
+import {
+  ApiCreatedResponse,
+  ApiOkResponse,
+  ApiUnauthorizedResponse,
+  ApiBody,
+  ApiParam,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 
 @Controller('users')
 export class UserController {
   constructor(private userService: UserService){}
 
   // GET endpoints
-
+  @ApiOkResponse({ description: 'Find all users' })
   @Get()
   @UseGuards(AuthGuard)
   async findAllUsers(@Req() req: any, @Query() query: UserQueryDto){
@@ -20,7 +28,9 @@ export class UserController {
 } 
     
   }
-
+  @ApiBearerAuth()
+  @ApiOkResponse({ description: 'Find a users with users id' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized', status :401  })
   @Get(':id')
   @UseGuards(AuthGuard)
   async findUserById(@Param('id') id: string, @Req() req: any){
@@ -37,7 +47,9 @@ export class UserController {
     }
    
   }
-
+  @ApiBearerAuth()
+  @ApiOkResponse({ description: 'Find a users with users username' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized', status :401  })
   @Get('username/:username')
   @UseGuards(AuthGuard)
   async findUserByUsername(@Param('username') username: string, @Req() req: any){
@@ -48,7 +60,9 @@ export class UserController {
   }
 
   // POST endpoints
-
+  @ApiOkResponse({ description: 'Create a user' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized', status :401  })
+  @ApiBody({ type: UserDto })
   @Post()
   async createUser(@Body(new ValidationPipe()) user: UserDto){
     try{
@@ -61,7 +75,9 @@ export class UserController {
       }
     }
   }
-
+  @ApiBearerAuth()
+  @ApiOkResponse({ description: 'Update a user' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized', status :401  })
   @Put(':id')
   @UseGuards(AuthGuard)
   async update(@Body(new ValidationPipe()) body: UpdateUserDto, @Param('id') id: string, @Req() req: any) {
@@ -81,6 +97,9 @@ export class UserController {
     return updateUser;
   }
 
+  @ApiBearerAuth()
+  @ApiOkResponse({ description: 'Change users password' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized', status :401  })
   @Put('password/change')
   @UseGuards(AuthGuard)
   async updatePassword(@Body(new ValidationPipe()) body: UserPasswordDto, @Req() req: any) {
@@ -103,6 +122,9 @@ export class UserController {
     }
   }
 
+ @ApiBearerAuth()
+  @ApiOkResponse({ description: 'Delete a user' })
+  @ApiUnauthorizedResponse({ description: 'Unauthorized', status :401  })
   @Delete(':id')
   @UseGuards(AuthGuard)
   async remove(@Param('id') id: string, @Req() req: any) {
